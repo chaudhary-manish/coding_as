@@ -1,0 +1,29 @@
+{
+    "user": {
+          "id": 1,
+          "username": "Manish Chaudhary",
+          "email": "chaudhary94rc@gmail.com",
+          "password":"$2b$12$l.FM2M3Xg1A7jMSSok.f3uP/ZPljD5AyQoOaEJIaOQMXjkAtcGuEO"
+
+    },
+        "post": [ {
+            "user_id": 1,
+            "post_id":1,
+            "category_id":1,
+            "post_name": "test1",
+            "post_title" :"test", 
+            "post_description" :"testing only"
+        
+        },
+            {
+                "user_id": 1,
+                "post_id":2,
+                "category_id":1,
+                "post_name": "test2",
+                "post_title" :"test2", 
+                "post_description" :"testing2 only"
+            
+            }
+        ]
+        
+}
