@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Header,status,HTTPException
+from fastapi import FastAPI, Depends,status,HTTPException
 import schemas
 import uvicorn
 from config import *
@@ -25,6 +25,15 @@ async def authenticate_user(user: schemas.UserAuthenticate):
             access_token = auth.encode_jwt_token(
                 data={"sub": user.username}, expires_delta=access_token_expires)
             return {"access_token": access_token, "token_type": "Bearer"}
+        
+
+@app.get("/posts",dependencies=[Depends(auth.verify_token)],response_model= schemas.PostResponse)
+async def post_list():
+    post = data["post"]
+    if post:
+        return {"data": post, "count": len(post)}
+    else:
+        raise HTTPException(status_code=404, detail="Note not found")
 
 
 if __name__ == "__main__":

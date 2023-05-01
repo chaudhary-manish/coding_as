@@ -38,3 +38,24 @@ class TestUserLogin:
         )
         assert response.status_code == 200
         assert len(response.json()) == 2
+
+class TestUserLogin:
+    """TestUserLogin tests /users/auth"""
+
+    def test_read_item_bad_token(self):
+        response = client.get("/posts", headers={"token": "bearer hailhydra"})
+        assert response.status_code == 401
+        assert response.json() == {"detail": "Could not validate credentials"}
+    
+    def test_post_request_with_proper_body_returns_200_with_jwt_token(self):
+        response = client.post(
+            "/users/auth",
+            json={"username": "chaudhary94rc@gmail.com", "password": "12345"}
+        )
+        if response:
+            response = client.get(
+            "/posts", headers={"token": response.json()["token_type"] +  " " + response.json()["access_token"]}
+            )
+            assert response.status_code == 200
+            assert response.json()["count"] == 2
+       
